@@ -8,19 +8,16 @@ namespace Lab5_ED1.Controllers
 {
     public class TasksController : Controller
     {
-        // GET: Tasks
-        public ActionResult Index()
+        public ActionResult Login()
         {
             return View();
         }
 
-        // GET: Tasks/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: Tasks/Create
         public ActionResult Create()
         {
             return View();
