@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.29905.134
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab5_ED1", "Lab5_ED1.csproj", "{B4468628-E0A2-4C00-87CE-E3E19FFDEF71}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomGenerics", "..\CustomGenerics\CustomGenerics.csproj", "{282FC94D-D770-4C38-9B25-5CC3F04A30F7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{B4468628-E0A2-4C00-87CE-E3E19FFDEF71}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B4468628-E0A2-4C00-87CE-E3E19FFDEF71}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B4468628-E0A2-4C00-87CE-E3E19FFDEF71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{282FC94D-D770-4C38-9B25-5CC3F04A30F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{282FC94D-D770-4C38-9B25-5CC3F04A30F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{282FC94D-D770-4C38-9B25-5CC3F04A30F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{282FC94D-D770-4C38-9B25-5CC3F04A30F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
