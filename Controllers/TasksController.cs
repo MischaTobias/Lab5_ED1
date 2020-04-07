@@ -10,6 +10,7 @@ namespace Lab5_ED1.Controllers
     {
         public ActionResult Login()
         {
+            //Only user verification
             return View();
         }
 
