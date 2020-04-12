@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CustomGenerics.Structures
 {
-    class Hash
+    public class Hash
     {
         Task[] TablaHash = new Task[12];
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CustomGenerics.Structures
 {
-    class Task
+    public class Task
     {
         public string Name { get; set; }
         public string Description { get; set; }
