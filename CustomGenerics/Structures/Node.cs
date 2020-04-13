@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace CustomGenerics.Structures
 {
-    public class Node
+    public class Node<T>
     {
-        public Node Father;
-        public Node RightSon;
-        public Node LeftSon;
-        public string Task;
+        public Node<T> Father;
+        public Node<T> RightSon;
+        public Node<T> LeftSon;
+        public T Task;
         public int Priority;
 
-        public Node(string key)
+        public Node(T key)
         {
             Task = key;
         }
