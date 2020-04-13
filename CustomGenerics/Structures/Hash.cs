@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace CustomGenerics.Structures
 {
-    public class Hash
+    public class Hash<T>
     {
-        Task[] TablaHash = new Task[12];
+        T[] TablaHash = new T[12];
 
-        public void Insert(Task T1)
+        public void Insert(T T1)
         {
-           int code = T1.Name.GetHashCode()%12;
+           int code = T1.GetHashCode()%12;
             if(TablaHash[code] != null)
             {
-                Task Aux = TablaHash[12];
+                T Aux = TablaHash[12];
                 while(TablaHash[code].Next != null)
                 {
                     Aux = Aux.Next;
@@ -29,12 +29,12 @@ namespace CustomGenerics.Structures
                 TablaHash[code] = T1;
             }
         }
-        public Task Search(string Searchedname)
+        public HashNode Search(string Searchedname)
         {
             int code = Searchedname.GetHashCode() % 12;
             if(TablaHash[code].Name != Searchedname)
             {
-                Task Aux = TablaHash[code];
+                HashNode Aux = TablaHash[code];
                 while(Aux.Name != Searchedname || Aux.Next !=null)
                 {
                     Aux = Aux.Next;
@@ -55,7 +55,7 @@ namespace CustomGenerics.Structures
         }
        public void Remove(string searchedName)
        {
-            Task TaskTR = Search(searchedName);
+            HashNode TaskTR = Search(searchedName);
             if (TaskTR.Next != null)
             {
                 TaskTR.Next.Before = TaskTR.Before;
