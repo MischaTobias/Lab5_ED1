@@ -13,6 +13,22 @@ namespace Lab5_ED1.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult Login(FormCollection collection)
+        {
+            try
+            {
+                // TODO: Add insert logic here
+                var user = collection["User"];
+                var position = collection["Position"];
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
         public ActionResult Tasks()
         {
             return View();
