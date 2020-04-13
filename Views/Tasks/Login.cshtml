@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Login</h2>
+
+@using (Html.BeginForm("Login", "Tasks", FormMethod.Post))
+{
+    @Html.TextBox("search")
+    <input type="submit"
+           name="submit"
+           value="User" />
+
+    <div>
+        Manager @Html.RadioButton("Position", "manager")
+    </div>
+}
+

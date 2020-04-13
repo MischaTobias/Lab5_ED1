@@ -13,7 +13,7 @@ namespace Lab5_ED1.Controllers
             return View();
         }
 
-        public ActionResult Details(int id)
+        public ActionResult Tasks()
         {
             return View();
         }

@@ -16,5 +16,7 @@ namespace Lab5_ED1.Helpers
                 return _instance;
             }
         }
+
+        List<string> Users = new List<string>();
     }
 }

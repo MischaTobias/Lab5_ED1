@@ -31,41 +31,41 @@ namespace CustomGenerics.Structures
                 TablaHash[code] = T1;
             }
         }
-        public HashNode<T> Search(string Searchedname)
-        {
-            int code = Searchedname.GetHashCode() % 12;
-            if(TablaHash[code].Name != Searchedname)
-            {
-                HashNode<T> Aux = TablaHash[code];
-                while(Aux.Name != Searchedname || Aux.Next !=null)
-                {
-                    Aux = Aux.Next;
-                }
-                if(Aux.Next == null)
-                {
-                    return null;
-                }
-                else
-                {
-                    return Aux;
-                }
-            }
-            else
-            {
-                return TablaHash[code];
-            }
-        }
-       public void Remove(string searchedName)
-       {
-            HashNode<T> TaskTR = Search(searchedName);
-            if (TaskTR.Next != null)
-            {
-                TaskTR.Next.Previous = TaskTR.Previous;
-            }
-            if(TaskTR.Previous!= null)
-            {
-                TaskTR.Previous.Next = TaskTR.Next;
-            }
-       }   
+        //public HashNode<T> Search(string Searchedname)
+        //{
+        //    int code = Searchedname.GetHashCode() % 12;
+        //    //if(TablaHash[code].Name != Searchedname)
+        //    //{
+        //    //    HashNode<T> Aux = TablaHash[code];
+        //    //    while(Aux.Name != Searchedname || Aux.Next !=null)
+        //    //    {
+        //    //        Aux = Aux.Next;
+        //    //    }
+        //    //    if(Aux.Next == null)
+        //    //    {
+        //    //        return null;
+        //    //    }
+        //    //    else
+        //    //    {
+        //    //        return Aux;
+        //    //    }
+        //    //}
+        //    //else
+        //    //{
+        //    //    return TablaHash[code];
+        //    //}
+        //}
+       //public void Remove(string searchedName)
+       //{
+       //     HashNode<T> TaskTR = Search(searchedName);
+       //     if (TaskTR.Next != null)
+       //     {
+       //         TaskTR.Next.Previous = TaskTR.Previous;
+       //     }
+       //     if(TaskTR.Previous!= null)
+       //     {
+       //         TaskTR.Previous.Next = TaskTR.Next;
+       //     }
+       //}   
     }
 }
