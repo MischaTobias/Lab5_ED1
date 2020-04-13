@@ -9,32 +9,34 @@ namespace CustomGenerics.Structures
 {
     public class Hash<T>
     {
-        T[] TablaHash = new T[12];
+        HashNode<T>[] TablaHash = new HashNode<T>[12];
 
-        public void Insert(T T1)
+        public void Insert(T InsertV)
         {
+            HashNode<T> T1 = new HashNode<T>();
+            T1.value = InsertV;
            int code = T1.GetHashCode()%12;
             if(TablaHash[code] != null)
             {
-                T Aux = TablaHash[12];
+                HashNode<T> Aux = TablaHash[12];
                 while(TablaHash[code].Next != null)
                 {
                     Aux = Aux.Next;
                 }
                 Aux.Next = T1;
-                T1.Before = Aux;
+                T1.Previous = Aux;
             }
             else
             {
                 TablaHash[code] = T1;
             }
         }
-        public HashNode Search(string Searchedname)
+        public HashNode<T> Search(string Searchedname)
         {
             int code = Searchedname.GetHashCode() % 12;
             if(TablaHash[code].Name != Searchedname)
             {
-                HashNode Aux = TablaHash[code];
+                HashNode<T> Aux = TablaHash[code];
                 while(Aux.Name != Searchedname || Aux.Next !=null)
                 {
                     Aux = Aux.Next;
@@ -55,14 +57,14 @@ namespace CustomGenerics.Structures
         }
        public void Remove(string searchedName)
        {
-            HashNode TaskTR = Search(searchedName);
+            HashNode<T> TaskTR = Search(searchedName);
             if (TaskTR.Next != null)
             {
-                TaskTR.Next.Before = TaskTR.Before;
+                TaskTR.Next.Previous = TaskTR.Previous;
             }
-            if(TaskTR.Before != null)
+            if(TaskTR.Previous!= null)
             {
-                TaskTR.Before.Next = TaskTR.Next;
+                TaskTR.Previous.Next = TaskTR.Next;
             }
        }   
     }
