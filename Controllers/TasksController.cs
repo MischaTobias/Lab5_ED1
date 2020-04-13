@@ -19,8 +19,16 @@ namespace Lab5_ED1.Controllers
             try
             {
                 // TODO: Add insert logic here
-                var user = collection["User"];
+                var user = collection["search"];
                 var position = collection["Position"];
+                if (position)
+                {
+
+                }
+                else
+                {
+
+                }
                 return RedirectToAction("Index");
             }
             catch
