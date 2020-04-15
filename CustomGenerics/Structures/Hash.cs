@@ -11,11 +11,12 @@ namespace CustomGenerics.Structures
     {
         HashNode<T>[] TablaHash = new HashNode<T>[12];
 
-        public void Insert(T InsertV)
+        public void Insert(T InsertV, string key)
         {
             HashNode<T> T1 = new HashNode<T>();
             T1.value = InsertV;
-           int code = T1.GetHashCode()%12;
+            T1.Key = key;
+            int code = T1.Key.GetHashCode()%12;
             if(TablaHash[code] != null)
             {
                 HashNode<T> Aux = TablaHash[12];
@@ -31,41 +32,43 @@ namespace CustomGenerics.Structures
                 TablaHash[code] = T1;
             }
         }
-        //public HashNode<T> Search(string Searchedname)
-        //{
-        //    int code = Searchedname.GetHashCode() % 12;
-        //    //if(TablaHash[code].Name != Searchedname)
-        //    //{
-        //    //    HashNode<T> Aux = TablaHash[code];
-        //    //    while(Aux.Name != Searchedname || Aux.Next !=null)
-        //    //    {
-        //    //        Aux = Aux.Next;
-        //    //    }
-        //    //    if(Aux.Next == null)
-        //    //    {
-        //    //        return null;
-        //    //    }
-        //    //    else
-        //    //    {
-        //    //        return Aux;
-        //    //    }
-        //    //}
-        //    //else
-        //    //{
-        //    //    return TablaHash[code];
-        //    //}
-        //}
-       //public void Remove(string searchedName)
-       //{
-       //     HashNode<T> TaskTR = Search(searchedName);
-       //     if (TaskTR.Next != null)
-       //     {
-       //         TaskTR.Next.Previous = TaskTR.Previous;
-       //     }
-       //     if(TaskTR.Previous!= null)
-       //     {
-       //         TaskTR.Previous.Next = TaskTR.Next;
-       //     }
-       //}   
+
+        public HashNode<T> Search(string searchedKey)
+        {
+            int code = searchedKey.GetHashCode() % 12;
+            if (TablaHash[code].Key != searchedKey)
+            {
+                HashNode<T> Aux = TablaHash[code];
+                while (Aux.Key != searchedKey || Aux.Next != null)
+                {
+                    Aux = Aux.Next;
+                }
+                if (Aux.Next == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return Aux;
+                }
+            }
+            else
+            {
+                return TablaHash[code];
+            }
+        }
+
+        public void Remove(string searchedKey)
+        {
+            HashNode<T> TaskTR = Search(searchedKey);
+            if (TaskTR.Next != null)
+            {
+                TaskTR.Next.Previous = TaskTR.Previous;
+            }
+            if (TaskTR.Previous != null)
+            {
+                TaskTR.Previous.Next = TaskTR.Next;
+            }
+        }
     }
 }

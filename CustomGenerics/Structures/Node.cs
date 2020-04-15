@@ -11,6 +11,7 @@ namespace CustomGenerics.Structures
         public Node<T> Father;
         public Node<T> RightSon;
         public Node<T> LeftSon;
+        public string Key;
         public T Task;
         public int Priority;
 
