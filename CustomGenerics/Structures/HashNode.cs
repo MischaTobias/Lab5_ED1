@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CustomGenerics.Structures
 {
-    public class HashNode<T>
+    public class HashNode<T> where T : IComparable
     {
         public HashNode<T> Previous { get; set; }
         public HashNode<T> Next { get; set; }
