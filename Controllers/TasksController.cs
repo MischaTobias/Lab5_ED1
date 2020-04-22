@@ -20,7 +20,7 @@ namespace Lab5_ED1.Controllers
         {
             try
             {
-                Storage.Instance.CurrentUser = collection["search"].ToLower();
+                Storage.Instance.CurrentUser = collection["User"];
                 var position = collection["Position"];
                 if (position == "manager")
                 {
@@ -43,6 +43,25 @@ namespace Lab5_ED1.Controllers
             }
         }
 
+        public ActionResult CreateTask()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateTask(FormCollection collection)
+        {
+            var newTask = new TasksModel()
+            {
+                Title = collection["Title"],
+                Description = collection["Description"],
+                Proyect = collection["Proyect"],
+                //Priority = collection["Priority"],
+                //DueDate = collection["DueDate"]
+            };
+            return RedirectToAction("DeveloperProfile");
+        }
+
         public ActionResult DevelopersList()
         {
             return View(Storage.Instance.Developers);
@@ -57,9 +76,15 @@ namespace Lab5_ED1.Controllers
                 {
                     if (changeTask == 1)
                     {
-                        developer.Tasks.Delete();
+                        if (developer.Tasks != null)
+                        {
+                            developer.Tasks.Delete();
+                        }
                     }
-                    developer.CurrentTask = Storage.Instance.Hash.Search(developer.Tasks.Root.Key).Value;
+                    if (developer.Tasks != null)
+                    {
+                        developer.CurrentTask = Storage.Instance.Hash.Search(developer.Tasks.Root.Key).Value;
+                    }
                     return View(developer);
                 }
             }
@@ -72,7 +97,7 @@ namespace Lab5_ED1.Controllers
             var developerCopy = new Developer() { Tasks = developer.Tasks, User = developer.User };
             for (int i = 0; i < developerCopy.Tasks.TasksQuantity; i++)
             {
-                taskList.Add((Storage.Instance.Hash.Search(developerCopy.Tasks.Delete().Key).Value);
+                taskList.Add(Storage.Instance.Hash.Search(developerCopy.Tasks.Delete().Key).Value);
             }
             var dev = new DeveloperForReview() { User = developer.User, Tasks = taskList };
             return View(developer);

@@ -167,6 +167,7 @@
     <Content Include="Views\Tasks\DeveloperProfile.cshtml" />
     <Content Include="Views\Tasks\DeveloperReview.cshtml" />
     <Content Include="Views\Tasks\DevelopersList.cshtml" />
+    <Content Include="Views\Tasks\CreateTask.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
