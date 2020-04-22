@@ -19,8 +19,8 @@ namespace CustomGenerics.Structures
             int code = T1.Key.GetHashCode()%12;
             if(TablaHash[code] != null)
             {
-                HashNode<T> Aux = TablaHash[12];
-                while(TablaHash[code].Next != null)
+                HashNode<T> Aux = TablaHash[code];
+                while(Aux.Next != null)
                 {
                     Aux = Aux.Next;
                 }
@@ -39,7 +39,7 @@ namespace CustomGenerics.Structures
             if (TablaHash[code].Key != searchedKey)
             {
                 HashNode<T> Aux = TablaHash[code];
-                while (Aux.Key != searchedKey || Aux.Next != null)
+                while (Aux.Key != searchedKey && Aux.Next != null)
                 {
                     Aux = Aux.Next;
                 }
