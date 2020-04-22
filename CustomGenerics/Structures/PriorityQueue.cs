@@ -184,6 +184,7 @@ namespace CustomGenerics
                 LastNode.Father.RightSon = null;
             }
             OrderUptoDown(Root);
+            TasksQuantity--;
             return FirstNode;
         }
         private Node<T> SearchLastNode(Node<T> current, int number)
