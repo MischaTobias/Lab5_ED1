@@ -1,0 +1,58 @@
+﻿@model Lab5_ED1.Models.DeveloperForReview
+
+@{
+    ViewBag.Title = "Developer";
+}
+
+<h3><strong>@Html.DisplayFor(model => model.User)</strong></h3>
+
+<p>@Html.DisplayFor(model => model.User) has @Html.DisplayFor(model => model.Tasks.Count) pending tasks</p>
+
+<h4><strong>A list of the developer's pending tasks is shown below</strong></h4>
+
+
+<p>
+    @Html.ActionLink("Go back to Developers List", "Developers List")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Tasks.First().Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tasks.First().Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tasks.First().Proyect)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tasks.First().Priority)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tasks.First().DueDate)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Tasks)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Proyect)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Priority)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DueDate)
+            </td>
+        </tr>
+    }
+
+</table>

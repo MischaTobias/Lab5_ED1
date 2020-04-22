@@ -61,6 +61,12 @@ namespace Lab5_ED1.Controllers
 
         public ActionResult DeveloperReview(Developer developer)
         {
+            //var taskList = new List<TasksModel>();
+            //for (int i = 0; i < developer.Tasks.TasksQuantity; i++)
+            //{
+            //    taskList.Add(developer.Tasks.Delete);
+            //}
+            //var dev = new DeveloperForReview() { User = developer.User, Tasks = taskList };
             return View(developer);
         }
     }
