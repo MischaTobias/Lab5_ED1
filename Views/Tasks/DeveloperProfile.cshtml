@@ -8,5 +8,7 @@
 
 <h3><strong>@Html.DisplayFor(model=>model.User)</strong></h3>
 
-<p>You have ** pending tasks</p>
+<p>You have @Html.DisplayFor(model=>model.Tasks.NodeQty) pending tasks</p>
+
+<h4><strong>Your current task information</strong></h4>
 
