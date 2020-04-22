@@ -35,7 +35,6 @@ namespace Lab5_ED1.Controllers
                     {
                         var NewUser = new Developer() { User = Storage.Instance.CurrentUser };
                         Storage.Instance.Developers.Add(NewUser);
-
                     }
                     else
                     {

@@ -10,8 +10,7 @@ namespace CustomGenerics
     public class PriorityQueue<T>
     {
         public Node<T> Root;
-        public int NodeQty;
-        private int TasksQuantity;
+        public int TasksQuantity;
         private int Leaves;
         private int HeapHeight;
         private int MaxLeaves;
@@ -21,7 +20,6 @@ namespace CustomGenerics
         public PriorityQueue()
         {
             TasksQuantity = 0;
-            NodeQty = 0;
             Leaves = 0;
         }
         
