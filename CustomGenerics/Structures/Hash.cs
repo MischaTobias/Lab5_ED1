@@ -9,7 +9,7 @@ namespace CustomGenerics.Structures
 {
     public class Hash<T> where T : IComparable
     {
-        HashNode<T>[] TablaHash = new HashNode<T>[12];
+        HashNode<T>[] TablaHash = new HashNode<T>[50];
 
         public void Insert(T InsertV, string key)
         {
@@ -17,7 +17,7 @@ namespace CustomGenerics.Structures
             T1.value = InsertV;
 
             T1.Key = key;
-            int code = T1.Key.GetHashCode()%12;
+            int code = T1.Key.GetHashCode()%50;
             if(TablaHash[code] != null)
             {
                 HashNode<T> Aux = TablaHash[code];
@@ -36,7 +36,7 @@ namespace CustomGenerics.Structures
 
         public HashNode<T> Search(string searchedKey)
         {
-            int code = searchedKey.GetHashCode() % 12;
+            int code = searchedKey.GetHashCode() % 50;
             if (TablaHash[code].Key != searchedKey)
             {
                 HashNode<T> Aux = TablaHash[code];
