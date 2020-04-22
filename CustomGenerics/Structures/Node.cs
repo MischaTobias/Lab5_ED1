@@ -13,10 +13,13 @@ namespace CustomGenerics.Structures
         public Node<T> LeftSon;
         public string Key;
         public int Priority;
+        public DateTime DatePriority;
 
-        public Node(string key)
+        public Node(string key, DateTime Date, int priority)
         {
             Key = key;
+            DatePriority = Date;
+            Priority = priority;
         }
     }
 }

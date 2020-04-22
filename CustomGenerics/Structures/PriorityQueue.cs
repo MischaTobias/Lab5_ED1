@@ -33,9 +33,9 @@ namespace CustomGenerics
             return TasksQuantity == 10 ? true : false;
         }
 
-        public void AddTask(string key)
+        public void AddTask(string key, DateTime date, int priority)
         {
-            var newNode = new Node<T>(key);
+            var newNode = new Node<T>(key, date, priority);
             if (IsEmpty())
             {
                 Root = newNode;
@@ -44,17 +44,21 @@ namespace CustomGenerics
             }
             else
             {
-                flag2 = MaxLeaves;
-                flag1 = 1;
-                Insert(Root, newNode);
                 TasksQuantity++;
-                Leaves++;
-                if (Leaves == MaxLeaves)
+                var NewNodeFather = SearchLastNode(Root, 1);
+                if(NewNodeFather.LeftSon != null)
                 {
-                    Leaves = 0;
-                    HeapHeight++;
-                    MaxLeaves = Convert.ToInt32(Math.Pow(2, HeapHeight - 1));
+                    NewNodeFather.RightSon = newNode;
+                    newNode.Father = NewNodeFather;
+                    OrderDowntoUp(newNode);
                 }
+                else
+                {
+                    NewNodeFather.LeftSon = newNode;
+                    newNode.Father = NewNodeFather;
+                    OrderDowntoUp(newNode);
+                }
+                
             }
         }
 
@@ -113,7 +117,11 @@ namespace CustomGenerics
                     }
                     else if (current.Priority == current.RightSon.Priority)
                     {
-                        //Realizar la evaluación dependiendo de la fecha
+                        if(current.DatePriority > current.RightSon.DatePriority)
+                        {
+                            ChangeNodes(current.RightSon);
+                            OrderDowntoUp(current.RightSon);
+                        }
                     }
                 }
                 else if (current.LeftSon.Priority < current.RightSon.Priority)
@@ -125,12 +133,47 @@ namespace CustomGenerics
                     }
                     else if (current.Priority == current.LeftSon.Priority)
                     {
-                        //Realizar la evaluación dependiendo de la fecha
+                        if(current.DatePriority > current.LeftSon.DatePriority)
+                        {
+                            ChangeNodes(current.RightSon);
+                            OrderDowntoUp(current.RightSon);
+                        }
                     }
                 }
                 else
                 {
-                    //Realizar la evaluación dependiendo de la fecha
+                   if(current.LeftSon.DatePriority > current.RightSon.DatePriority)
+                   {
+                        if (current.Priority > current.RightSon.Priority)
+                        {
+                            ChangeNodes(current.RightSon);
+                            OrderDowntoUp(current.RightSon);
+                        }
+                        else if (current.Priority == current.RightSon.Priority)
+                        {
+                            if (current.DatePriority > current.RightSon.DatePriority)
+                            {
+                                ChangeNodes(current.RightSon);
+                                OrderDowntoUp(current.RightSon);
+                            }
+                        }
+                   }
+                   else
+                   {
+                        if (current.Priority > current.LeftSon.Priority)
+                        {
+                            ChangeNodes(current.LeftSon);
+                            OrderDowntoUp(current.LeftSon);
+                        }
+                        else if (current.Priority == current.LeftSon.Priority)
+                        {
+                            if (current.DatePriority > current.LeftSon.DatePriority)
+                            {
+                                ChangeNodes(current.RightSon);
+                                OrderDowntoUp(current.RightSon);
+                            }
+                        }
+                   }
                 }
             }
             else if(current.RightSon != null)
@@ -163,10 +206,14 @@ namespace CustomGenerics
         {
             var Priority1 = node.Priority;
             var Key1 = node.Key;
+            var Date1 = node.DatePriority;
             node.Priority = node.Father.Priority;
             node.Key = node.Father.Key;
+            node.DatePriority = node.Father.DatePriority;
             node.Father.Priority = Priority1;
             node.Father.Key = Key1;
+            node.Father.DatePriority = Date1;
+            
         }
         
         public  Node<T> Delete()
@@ -189,26 +236,34 @@ namespace CustomGenerics
         }
         private Node<T> SearchLastNode(Node<T> current, int number)
         {
-            int previousn = TasksQuantity;
-            if(previousn == number)
+            try
             {
-                return current;
-            }
-            else
-            {
-                while (previousn / 2 != number)
+                int previousn = TasksQuantity;
+                if (previousn == number)
                 {
-                    previousn = previousn / 2;
-                }
-                if (previousn % 2 == 0)
-                {
-                    return SearchLastNode(current.LeftSon, previousn);
+                    return current;
                 }
                 else
                 {
-                    return SearchLastNode(current.RightSon, previousn);
+                    while (previousn / 2 != number)
+                    {
+                        previousn = previousn / 2;
+                    }
+                    if (previousn % 2 == 0)
+                    {
+                        return SearchLastNode(current.LeftSon, previousn);
+                    }
+                    else
+                    {
+                        return SearchLastNode(current.RightSon, previousn);
+                    }
                 }
             }
+            catch
+            {
+                return current;
+            }
+            
         }
     }
 }
