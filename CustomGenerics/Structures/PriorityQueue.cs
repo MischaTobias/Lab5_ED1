@@ -169,7 +169,7 @@ namespace CustomGenerics
             node.Father.Key = Key1;
         }
         
-        private Node<T> Delete(Node<T> current, int number)
+        public  Node<T> Delete(Node<T> current, int number)
         {
             Node<T> LastNode = SearchLastNode(Root, 1);
             Node<T> FirstNode = Root;

@@ -126,6 +126,7 @@
     </Compile>
     <Compile Include="Helpers\Storage.cs" />
     <Compile Include="Models\Developer.cs" />
+    <Compile Include="Models\DeveloperForReview.cs" />
     <Compile Include="Models\TasksModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -163,9 +164,9 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Tasks\Login.cshtml" />
-    <Content Include="Views\Tasks\Tasks.cshtml" />
-    <Content Include="Views\Tasks\Developers.cshtml" />
     <Content Include="Views\Tasks\DeveloperProfile.cshtml" />
+    <Content Include="Views\Tasks\DeveloperReview.cshtml" />
+    <Content Include="Views\Tasks\DevelopersList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
