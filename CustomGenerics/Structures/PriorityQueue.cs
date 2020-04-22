@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace CustomGenerics
 {
-    public class PriorityQueue
+    public class PriorityQueue<T>
     {
-        public Node Root;
+        public Node<T> Root;
         private int TasksQuantity;
         private int Leaves;
         private int HeapHeight;
@@ -33,9 +33,9 @@ namespace CustomGenerics
             return TasksQuantity == 10 ? true : false;
         }
 
-        public void AddTask(string key)
+        public void AddTask(T key)
         {
-            var newNode = new Node(key);
+            var newNode = new Node<T>(key);
             if (IsEmpty())
             {
                 Root = newNode;
@@ -58,7 +58,7 @@ namespace CustomGenerics
             }
         }
 
-        public void Insert(Node currentNode, Node newNode)
+        public void Insert(Node<T> currentNode, Node<T> newNode)
         {
             if (currentNode.LeftSon == null)
             {
@@ -87,7 +87,7 @@ namespace CustomGenerics
             }
         }
 
-        private void Order(Node current)
+        private void Order(Node<T> current)
         {
             if (current.Priority < current.Father.Priority)
             {
@@ -99,7 +99,7 @@ namespace CustomGenerics
             }
         }
 
-        private void ChangeNodes(Node node)
+        private void ChangeNodes(Node<T> node)
         {
             var Priority1 = node.Priority;
             var Task1 = node.Task;

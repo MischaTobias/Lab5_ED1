@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Lab5_ED1.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -17,6 +18,7 @@ namespace Lab5_ED1.Helpers
             }
         }
 
-        List<string> Users = new List<string>();
+        public List<Developer> Developers = new List<Developer>();
+        public string CurrentUser;
     }
 }

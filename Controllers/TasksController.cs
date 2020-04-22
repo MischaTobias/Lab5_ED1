@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Lab5_ED1.Helpers;
+using Lab5_ED1.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -18,9 +20,28 @@ namespace Lab5_ED1.Controllers
         {
             try
             {
-                // TODO: Add insert logic here
-                var user = collection["User"];
+                Storage.Instance.CurrentUser = collection["search"].ToLower();
                 var position = collection["Position"];
+                if (position == "manager")
+                {
+                    return RedirectToAction("DevelopersList");  
+                }
+                else
+                {
+                    //Btn obtener task
+                    //Ingresar task
+                    var user = Storage.Instance.Developers.Find(x => x.User == Storage.Instance.CurrentUser);
+                    if (user == null)
+                    {
+                        var NewUser = new Developer() { User = Storage.Instance.CurrentUser };
+                        Storage.Instance.Developers.Add(NewUser);
+
+                    }
+                    else
+                    {
+
+                    }
+                }
                 return RedirectToAction("Index");
             }
             catch
@@ -29,74 +50,19 @@ namespace Lab5_ED1.Controllers
             }
         }
 
-        public ActionResult Tasks()
+        public ActionResult DevelopersList()
+        {
+            return View(Storage.Instance.Developers);
+        }
+
+        public ActionResult DeveloperProfile()
         {
             return View();
         }
 
-        public ActionResult Create()
+        public ActionResult DeveloperReview(Developer developer)
         {
-            return View();
-        }
-
-        // POST: Tasks/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Tasks/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Tasks/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Tasks/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Tasks/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            return View(developer);
         }
     }
 }
