@@ -28,20 +28,14 @@ namespace Lab5_ED1.Controllers
                 }
                 else
                 {
-                    //Btn obtener task
-                    //Ingresar task
                     var user = Storage.Instance.Developers.Find(x => x.User == Storage.Instance.CurrentUser);
                     if (user == null)
                     {
                         var NewUser = new Developer() { User = Storage.Instance.CurrentUser };
                         Storage.Instance.Developers.Add(NewUser);
                     }
-                    else
-                    {
-
-                    }
+                    return RedirectToAction("DeveloperProfile");
                 }
-                return RedirectToAction("Index");
             }
             catch
             {
@@ -54,19 +48,33 @@ namespace Lab5_ED1.Controllers
             return View(Storage.Instance.Developers);
         }
 
-        public ActionResult DeveloperProfile()
+        public ActionResult DeveloperProfile(int? change)
         {
+            int changeTask = (change ?? 0);
+            foreach (var developer in Storage.Instance.Developers)
+            {
+                if (developer.User == Storage.Instance.CurrentUser)
+                {
+                    if (changeTask == 1)
+                    {
+                        developer.Tasks.Delete();
+                    }
+                    developer.CurrentTask = Storage.Instance.Hash.Search(developer.Tasks.Root.Key).Value;
+                    return View(developer);
+                }
+            }
             return View();
         }
 
         public ActionResult DeveloperReview(Developer developer)
         {
-            //var taskList = new List<TasksModel>();
-            //for (int i = 0; i < developer.Tasks.TasksQuantity; i++)
-            //{
-            //    taskList.Add(developer.Tasks.Delete);
-            //}
-            //var dev = new DeveloperForReview() { User = developer.User, Tasks = taskList };
+            var taskList = new List<TasksModel>();
+            var developerCopy = new Developer() { Tasks = developer.Tasks, User = developer.User };
+            for (int i = 0; i < developerCopy.Tasks.TasksQuantity; i++)
+            {
+                taskList.Add((Storage.Instance.Hash.Search(developerCopy.Tasks.Delete().Key).Value);
+            }
+            var dev = new DeveloperForReview() { User = developer.User, Tasks = taskList };
             return View(developer);
         }
     }
