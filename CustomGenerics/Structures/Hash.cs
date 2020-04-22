@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CustomGenerics.Structures
 {
-    public class Hash<T>
+    public class Hash<T> where T : IComparable
     {
         HashNode<T>[] TablaHash = new HashNode<T>[12];
 
@@ -15,6 +15,7 @@ namespace CustomGenerics.Structures
         {
             HashNode<T> T1 = new HashNode<T>();
             T1.value = InsertV;
+
             T1.Key = key;
             int code = T1.Key.GetHashCode()%12;
             if(TablaHash[code] != null)
@@ -58,9 +59,11 @@ namespace CustomGenerics.Structures
             }
         }
 
+
         public void Remove(string searchedKey)
         {
             HashNode<T> TaskTR = Search(searchedKey);
+
             if (TaskTR.Next != null)
             {
                 TaskTR.Next.Previous = TaskTR.Previous;
