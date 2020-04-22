@@ -14,7 +14,7 @@ namespace CustomGenerics.Structures
         public void Insert(T InsertV, string key)
         {
             HashNode<T> T1 = new HashNode<T>();
-            T1.value = InsertV;
+            T1.Value = InsertV;
 
             T1.Key = key;
             int code = T1.Key.GetHashCode()%50;
