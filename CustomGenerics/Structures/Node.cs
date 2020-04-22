@@ -12,12 +12,11 @@ namespace CustomGenerics.Structures
         public Node<T> RightSon;
         public Node<T> LeftSon;
         public string Key;
-        public T Task;
         public int Priority;
 
-        public Node(T key)
+        public Node(string key)
         {
-            Task = key;
+            Key = key;
         }
     }
 }

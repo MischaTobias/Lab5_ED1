@@ -10,5 +10,6 @@ namespace Lab5_ED1.Models
     {
         public string User { get; set; }
         public PriorityQueue<string> Tasks { get; set; }
+        public TasksModel CurrentTask { get; set; }
     }
 }
