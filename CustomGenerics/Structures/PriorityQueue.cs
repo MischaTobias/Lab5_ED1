@@ -33,7 +33,7 @@ namespace CustomGenerics
             return TasksQuantity == 10 ? true : false;
         }
 
-        public void AddTask(T key)
+        public void AddTask(string key)
         {
             var newNode = new Node<T>(key);
             if (IsEmpty())
@@ -64,13 +64,14 @@ namespace CustomGenerics
             {
                 newNode.Father = currentNode;
                 currentNode.LeftSon = newNode;
-                Order(currentNode.LeftSon);
+                OrderDowntoUp(currentNode.LeftSon);
+                
             }
             else if (currentNode.RightSon == null)
             {
                 newNode.Father = currentNode;
                 currentNode.RightSon = newNode;
-                Order(currentNode.RightSon);
+                OrderDowntoUp(currentNode.RightSon);
             }
             else
             {
@@ -87,7 +88,7 @@ namespace CustomGenerics
             }
         }
 
-        private void Order(Node<T> current)
+        private void OrderDowntoUp(Node<T> current)
         {
             if (current.Priority < current.Father.Priority)
             {
@@ -95,18 +96,118 @@ namespace CustomGenerics
             }
             else if (current.Father != null)
             {
-                Order(current.Father);
+                OrderDowntoUp(current.Father);
+            }
+        }
+        
+        private void OrderUptoDown(Node<T> current)
+        {
+            if(current.RightSon != null && current.LeftSon != null)
+            {
+                if (current.LeftSon.Priority > current.RightSon.Priority)
+                {
+                    if (current.Priority > current.RightSon.Priority)
+                    {
+                        ChangeNodes(current.RightSon);
+                        OrderDowntoUp(current.RightSon);
+                    }
+                    else if (current.Priority == current.RightSon.Priority)
+                    {
+                        //Realizar la evaluación dependiendo de la fecha
+                    }
+                }
+                else if (current.LeftSon.Priority < current.RightSon.Priority)
+                {
+                    if (current.Priority > current.LeftSon.Priority)
+                    {
+                        ChangeNodes(current.LeftSon);
+                        OrderDowntoUp(current.LeftSon);
+                    }
+                    else if (current.Priority == current.LeftSon.Priority)
+                    {
+                        //Realizar la evaluación dependiendo de la fecha
+                    }
+                }
+                else
+                {
+                    //Realizar la evaluación dependiendo de la fecha
+                }
+            }
+            else if(current.RightSon != null)
+            {
+                if (current.Priority > current.RightSon.Priority)
+                {
+                    ChangeNodes(current.RightSon);
+                    OrderDowntoUp(current.RightSon);
+                }
+                else if (current.Priority == current.RightSon.Priority)
+                {
+                    //Realizar la evaluación dependiendo de la fecha
+                }
+            }
+            else if(current.LeftSon != null)
+            {
+                if (current.Priority > current.LeftSon.Priority)
+                {
+                    ChangeNodes(current.LeftSon);
+                    OrderDowntoUp(current.LeftSon);
+                }
+                else if (current.Priority == current.LeftSon.Priority)
+                {
+                    //Realizar la evaluación dependiendo de la fecha
+                }
             }
         }
 
         private void ChangeNodes(Node<T> node)
         {
             var Priority1 = node.Priority;
-            var Task1 = node.Task;
+            var Key1 = node.Key;
             node.Priority = node.Father.Priority;
-            node.Task = node.Father.Task;
+            node.Key = node.Father.Key;
             node.Father.Priority = Priority1;
-            node.Father.Task = Task1;
+            node.Father.Key = Key1;
+        }
+        
+        private Node<T> Delete(Node<T> current, int number)
+        {
+            Node<T> LastNode = SearchLastNode(Root, 1);
+            Node<T> FirstNode = Root;
+            Root.Key = LastNode.Key;
+            Root.Priority = LastNode.Priority;
+            if(LastNode.Father.LeftSon == LastNode)
+            {
+                LastNode.Father.LeftSon = null;
+            }
+            else
+            {
+                LastNode.Father.RightSon = null;
+            }
+            OrderUptoDown(Root);
+            return FirstNode;
+        }
+        private Node<T> SearchLastNode(Node<T> current, int number)
+        {
+            int previousn = TasksQuantity;
+            if(previousn == number)
+            {
+                return current;
+            }
+            else
+            {
+                while (previousn / 2 != number)
+                {
+                    previousn = previousn / 2;
+                }
+                if (previousn % 2 == 0)
+                {
+                    return SearchLastNode(current.LeftSon, previousn);
+                }
+                else
+                {
+                    return SearchLastNode(current.RightSon, previousn);
+                }
+            }
         }
     }
 }
