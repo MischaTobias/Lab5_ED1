@@ -1,4 +1,5 @@
-﻿using Lab5_ED1.Models;
+﻿using CustomGenerics.Structures;
+using Lab5_ED1.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,7 @@ namespace Lab5_ED1.Helpers
             }
         }
 
+        public Hash<TasksModel> Hash = new Hash<TasksModel>();
         public List<Developer> Developers = new List<Developer>();
         public string CurrentUser;
     }
