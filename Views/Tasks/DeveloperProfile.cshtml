@@ -4,17 +4,19 @@
     ViewBag.Title = "Profile";
 }
 
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
 <h2>DeveloperProfile</h2>
 
-<h3><strong>@Html.DisplayFor(model=>model.User)</strong></h3>
+<h3><strong>@Html.DisplayFor(model => model.User)</strong></h3>
 
-<p>You have @Html.DisplayFor(model=>model.Tasks.TasksQuantity) pending tasks</p>
+<h4>You have <strong>@Html.DisplayFor(model => model.Tasks.TasksQuantity)</strong> pending tasks</h4>
 
 <h4><strong>Your current task information is shown below</strong></h4>
 
-@Html.ActionLink("Change Task", "DeveloperProfile", new { change = 1 })
 @Html.ActionLink("Add Task", "CreateTask")
-@Html.ActionLink("Change User", "Login")
 
 <div>
     <h4>Tasks</h4>
@@ -51,3 +53,6 @@
             @Html.DisplayFor(model => model.CurrentTask.DueDate)
         </dd>
     </dl>
+</div>
+
+@Html.ActionLink("Mark as done and get the next task", "DeveloperProfile", new { change = 1 })

@@ -9,6 +9,7 @@ namespace CustomGenerics.Structures
 {
     public class Hash<T> where T : IComparable
     {
+        //Interface implementation learned from https://www.codeproject.com/Questions/1239153/Csharp-copy-list-of-objects-without-reference
         HashNode<T>[] TablaHash = new HashNode<T>[50];
 
         public void Insert(T InsertV, string key)
@@ -68,24 +69,88 @@ namespace CustomGenerics.Structures
             }
         }
 
-
-        public void Remove(string searchedKey)
+        public void Delete(string searchedKey)
         {
-            HashNode<T> TaskTR = Search(searchedKey);
+            int code = GetCode(searchedKey);
 
-            if (TaskTR.Next != null)
+            if (TablaHash[code] != null)
             {
-                TaskTR.Next.Previous = TaskTR.Previous;
-            }
-            if (TaskTR.Previous != null)
-            {
-                TaskTR.Previous.Next = TaskTR.Next;
+
+                if (TablaHash[code].Key != searchedKey)
+                {
+                    HashNode<T> Aux = TablaHash[code];
+                    while (Aux.Key != searchedKey && Aux.Next != null)
+                    {
+                        Aux = Aux.Next;
+                    }
+                    if (Aux.Key == searchedKey)
+                    {
+                        if (Aux.Next != null)
+                        {
+                            Aux.Next.Previous = Aux.Previous;
+                        }
+                        if (Aux.Previous != null)
+                        {
+                            Aux.Previous.Next = Aux.Next;
+                        }
+                        if (Aux.Next == null && Aux.Previous == null)
+                        {
+                            Aux = null;
+                        }
+                    }
+                }
+                else
+                {
+                    if (TablaHash[code].Next != null)
+                    {
+                        TablaHash[code] = TablaHash[code].Next;
+                    }
+                    else
+                    {
+                        TablaHash[code] = TablaHash[code].Next;
+                    }
+                }
             }
         }
+
+        //public void Remove(string searchedKey)
+        //{
+        //    HashNode<T> TaskTR = Search(searchedKey);
+
+        //    if (TaskTR.Next != null)
+        //    {
+        //        TaskTR.Next.Previous = TaskTR.Previous;
+        //    }
+        //    if (TaskTR.Previous != null)
+        //    {
+        //        TaskTR.Previous.Next = TaskTR.Next;
+        //    }
+        //    if (TaskTR.Next == null && TaskTR.Previous == null)
+        //    {
+        //        TaskTR = null;
+        //    }
+        //}
 
         private int GetCode(string Key)
         {
             return Key.Length * 11 % 50;
         }
+
+        public List<HashNode<T>> GetTasksAsNodes()
+        {
+            var listOfTasks = new List<HashNode<T>>();
+            var currentNode = new HashNode<T>();
+            foreach (var task in TablaHash)
+            {
+                currentNode = task;
+                while (currentNode != null)
+                {
+                    listOfTasks.Add(currentNode);
+                    currentNode = currentNode.Next;
+                }
+            }
+            return listOfTasks;
+        }
+
     }
 }
