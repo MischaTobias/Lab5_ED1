@@ -17,7 +17,7 @@ namespace CustomGenerics.Structures
             T1.Value = InsertV;
 
             T1.Key = key;
-            int code = T1.Key.GetHashCode()%50;
+            int code = GetCode(T1.Key);
             if(TablaHash[code] != null)
             {
                 HashNode<T> Aux = TablaHash[code];
@@ -36,26 +36,35 @@ namespace CustomGenerics.Structures
 
         public HashNode<T> Search(string searchedKey)
         {
-            int code = searchedKey.GetHashCode() % 50;
-            if (TablaHash[code].Key != searchedKey)
+            int code = GetCode(searchedKey);
+
+            if (TablaHash[code] != null)
             {
-                HashNode<T> Aux = TablaHash[code];
-                while (Aux.Key != searchedKey && Aux.Next != null)
+
+                if (TablaHash[code].Key != searchedKey)
                 {
-                    Aux = Aux.Next;
-                }
-                if (Aux.Next == null)
-                {
-                    return null;
+                    HashNode<T> Aux = TablaHash[code];
+                    while (Aux.Key != searchedKey && Aux.Next != null)
+                    {
+                        Aux = Aux.Next;
+                    }
+                    if (Aux.Next == null)
+                    {
+                        return null;
+                    }
+                    else
+                    {
+                        return Aux;
+                    }
                 }
                 else
                 {
-                    return Aux;
+                    return TablaHash[code];
                 }
             }
             else
             {
-                return TablaHash[code];
+                return null;
             }
         }
 
@@ -72,6 +81,11 @@ namespace CustomGenerics.Structures
             {
                 TaskTR.Previous.Next = TaskTR.Next;
             }
+        }
+
+        private int GetCode(string Key)
+        {
+            return Key.Length * 11 % 50;
         }
     }
 }

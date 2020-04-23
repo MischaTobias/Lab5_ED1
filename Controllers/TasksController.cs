@@ -76,6 +76,18 @@ namespace Lab5_ED1.Controllers
             if (Storage.Instance.Hash.Search(newTask.Title) == null)
             {
                 Storage.Instance.Hash.Insert(newTask, newTask.Title);
+                foreach (var developer in Storage.Instance.Developers)
+                {
+                    if (developer.User == Storage.Instance.CurrentUser)
+                    {
+                        if (developer.Tasks == null)
+                        {
+                            developer.Tasks = new CustomGenerics.PriorityQueue<string>();
+                        }
+                       
+                        developer.Tasks.AddTask(newTask.Title, new DateTime(), newTask.Priority);
+                    }
+                }
                 return RedirectToAction("DeveloperProfile");
             }
             else
