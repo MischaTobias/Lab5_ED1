@@ -4,9 +4,11 @@
     ViewBag.Title = "DevelopersList";
 }
 
-<h2>DevelopersList</h2>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
-@Html.ActionLink("Change User", "Login")
+<h2>DevelopersList</h2>
 
 <table class="table">
     <tr>

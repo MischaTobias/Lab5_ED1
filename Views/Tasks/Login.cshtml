@@ -3,6 +3,10 @@
     ViewBag.Title = "Login";
 }
 
+@{
+    Layout = "~/Views/Shared/PrevLayout.cshtml";
+}
+
 <h2>Login</h2>
 
 @using (Html.BeginForm("Login", "Tasks", FormMethod.Post))

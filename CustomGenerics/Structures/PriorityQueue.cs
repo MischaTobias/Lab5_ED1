@@ -9,6 +9,7 @@ namespace CustomGenerics
 {
     public class PriorityQueue<T> : ICloneable
     {
+        //Interface use learned from: https://stackoverflow.com/questions/6569486/creating-a-copy-of-an-object-in-c-sharp
         public Node<T> Root;
         public int TasksQuantity;
 

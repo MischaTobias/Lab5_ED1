@@ -11,11 +11,17 @@ namespace Lab5_ED1.Models
         public string Description { get; set; }
         public string Proyect { get; set; }
         public int Priority { get; set; }
+        public string AssignedDeveloper { get; set; }
         public DateTime DueDate { get; set; }
         
         public int CompareTo(object obj)
         {
             return this.Title.CompareTo((string)obj);
+        }
+
+        public string GetInfoAsText()
+        {
+            return $"{AssignedDeveloper},{Priority.ToString()},{Title},{Description},{Proyect},{DueDate.ToString()}";
         }
     }
 }

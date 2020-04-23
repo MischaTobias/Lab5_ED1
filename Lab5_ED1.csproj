@@ -168,6 +168,8 @@
     <Content Include="Views\Tasks\DeveloperReview.cshtml" />
     <Content Include="Views\Tasks\DevelopersList.cshtml" />
     <Content Include="Views\Tasks\CreateTask.cshtml" />
+    <Content Include="Views\Shared\PrevLayout.cshtml" />
+    <Content Include="Views\Tasks\Exit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

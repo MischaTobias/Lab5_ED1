@@ -18,7 +18,7 @@
         @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+            <font color="red"><strong>@Html.ValidationMessageFor(model => model.Title)</strong></font>
         </div>
     </div>
 
@@ -62,5 +62,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "DeveloperProfile")
+    @Html.ActionLink("Back to Profile", "DeveloperProfile")
 </div>
