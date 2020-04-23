@@ -48,13 +48,13 @@ namespace CustomGenerics.Structures
                     {
                         Aux = Aux.Next;
                     }
-                    if (Aux.Next == null)
+                    if (Aux.Key == searchedKey)
                     {
-                        return null;
+                        return Aux;
                     }
                     else
                     {
-                        return Aux;
+                        return null;
                     }
                 }
                 else

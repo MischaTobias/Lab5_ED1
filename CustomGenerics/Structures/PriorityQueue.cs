@@ -237,13 +237,22 @@ namespace CustomGenerics
             Node<T> FirstNode = Root;
             Root.Key = LastNode.Key;
             Root.Priority = LastNode.Priority;
-            if(LastNode.Father.LeftSon == LastNode)
+            if (LastNode.Father == null)
             {
-                LastNode.Father.LeftSon = null;
+                Root = null;
+                TasksQuantity--;
+                return LastNode;
             }
             else
             {
-                LastNode.Father.RightSon = null;
+                if (LastNode.Father.LeftSon == LastNode)
+                {
+                    LastNode.Father.LeftSon = null;
+                }
+                else
+                {
+                    LastNode.Father.RightSon = null;
+                }
             }
             OrderUptoDown(Root);
             TasksQuantity--;

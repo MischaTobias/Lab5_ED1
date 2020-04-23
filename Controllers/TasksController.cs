@@ -71,7 +71,7 @@ namespace Lab5_ED1.Controllers
                 Description = collection["Description"],
                 Proyect = collection["Proyect"],
                 Priority = Priority,
-                //DueDate = collection["DueDate"]
+                DueDate = DateTime.Parse(collection["DueDate"])
             };
             if (Storage.Instance.Hash.Search(newTask.Title) == null)
             {
@@ -85,7 +85,7 @@ namespace Lab5_ED1.Controllers
                             developer.Tasks = new CustomGenerics.PriorityQueue<string>();
                         }
                        
-                        developer.Tasks.AddTask(newTask.Title, new DateTime(), newTask.Priority);
+                        developer.Tasks.AddTask(newTask.Title, newTask.DueDate, newTask.Priority);
                     }
                 }
                 return RedirectToAction("DeveloperProfile");
@@ -117,7 +117,14 @@ namespace Lab5_ED1.Controllers
                     }
                     if (developer.Tasks != null)
                     {
-                        developer.CurrentTask = Storage.Instance.Hash.Search(developer.Tasks.Root.Key).Value;
+                        if (developer.Tasks.Root != null)
+                        {
+                            developer.CurrentTask = Storage.Instance.Hash.Search(developer.Tasks.Root.Key).Value;
+                        }
+                        else
+                        {
+                            developer.CurrentTask = null;
+                        }
                     }
                     return View(developer);
                 }
@@ -125,8 +132,9 @@ namespace Lab5_ED1.Controllers
             return View();
         }
 
-        public ActionResult DeveloperReview(Developer developer)
+        public ActionResult DeveloperReview(int id)
         {
+            var developer = Storage.Instance.Developers.Where(x => x.Id == id).First();
             var taskList = new List<TasksModel>();
             var developerCopy = new Developer() { Tasks = developer.Tasks, User = developer.User };
             for (int i = 0; i < developerCopy.Tasks.TasksQuantity; i++)
@@ -134,7 +142,7 @@ namespace Lab5_ED1.Controllers
                 taskList.Add(Storage.Instance.Hash.Search(developerCopy.Tasks.Delete().Key).Value);
             }
             var dev = new DeveloperForReview() { User = developer.User, Tasks = taskList };
-            return View(developer);
+            return View(dev);
         }
     }
 }
