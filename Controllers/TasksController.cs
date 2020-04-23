@@ -1,4 +1,5 @@
-﻿using Lab5_ED1.Helpers;
+﻿using CustomGenerics;
+using Lab5_ED1.Helpers;
 using Lab5_ED1.Models;
 using System;
 using System.Collections.Generic;
@@ -10,15 +11,13 @@ namespace Lab5_ED1.Controllers
 {
     public class TasksController : Controller
     {
+        public static int NoOfDeveloper = 0;
+
         public ActionResult Login()
         {
             return View();
         }
-        //Estoy probando
-        /// <summary>
-        /// </summary>
-        /// <param name="collection"></param>
-        /// <returns></returns>
+
         [HttpPost]
         public ActionResult Login(FormCollection collection)
         {
@@ -35,7 +34,8 @@ namespace Lab5_ED1.Controllers
                     var user = Storage.Instance.Developers.Find(x => x.User == Storage.Instance.CurrentUser);
                     if (user == null)
                     {
-                        var NewUser = new Developer() { User = Storage.Instance.CurrentUser };
+                        var NewUser = new Developer() { User = Storage.Instance.CurrentUser, Id = NoOfDeveloper };
+                        NoOfDeveloper++;
                         Storage.Instance.Developers.Add(NewUser);
                     }
                     return RedirectToAction("DeveloperProfile");
@@ -69,7 +69,7 @@ namespace Lab5_ED1.Controllers
                     Priority = 3;
                     break;
             }
-            var newTask = new TasksModel()
+           var newTask = new TasksModel()
             {
                 Title = collection["Title"],
                 Description = collection["Description"],
@@ -140,7 +140,7 @@ namespace Lab5_ED1.Controllers
         {
             var developer = Storage.Instance.Developers.Where(x => x.Id == id).First();
             var taskList = new List<TasksModel>();
-            var developerCopy = new Developer() { Tasks = developer.Tasks, User = developer.User };
+            var developerCopy = new Developer() { Tasks = (PriorityQueue<string>)developer.Tasks.Clone(), User = developer.User };
             for (int i = 0; i < developerCopy.Tasks.TasksQuantity; i++)
             {
                 taskList.Add(Storage.Instance.Hash.Search(developerCopy.Tasks.Delete().Key).Value);

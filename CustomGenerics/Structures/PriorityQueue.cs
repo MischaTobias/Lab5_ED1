@@ -7,20 +7,14 @@ using System.Threading.Tasks;
 
 namespace CustomGenerics
 {
-    public class PriorityQueue<T>
+    public class PriorityQueue<T> : ICloneable
     {
         public Node<T> Root;
         public int TasksQuantity;
-        private int Leaves;
-        private int HeapHeight;
-        private int MaxLeaves;
-        private int flag1;
-        private int flag2;
 
         public PriorityQueue()
         {
             TasksQuantity = 0;
-            Leaves = 0;
         }
         
         public bool IsEmpty()
@@ -40,7 +34,6 @@ namespace CustomGenerics
             {
                 Root = newNode;
                 TasksQuantity = 1;
-                HeapHeight = 2;
             }
             else
             {
@@ -62,35 +55,35 @@ namespace CustomGenerics
             }
         }
 
-        public void Insert(Node<T> currentNode, Node<T> newNode)
-        {
-            if (currentNode.LeftSon == null)
-            {
-                newNode.Father = currentNode;
-                currentNode.LeftSon = newNode;
-                OrderDowntoUp(currentNode.LeftSon);
+        //public void Insert(Node<T> currentNode, Node<T> newNode)
+        //{
+        //    if (currentNode.LeftSon == null)
+        //    {
+        //        newNode.Father = currentNode;
+        //        currentNode.LeftSon = newNode;
+        //        OrderDowntoUp(currentNode.LeftSon);
                 
-            }
-            else if (currentNode.RightSon == null)
-            {
-                newNode.Father = currentNode;
-                currentNode.RightSon = newNode;
-                OrderDowntoUp(currentNode.RightSon);
-            }
-            else
-            {
-                if (Leaves > (flag1 + flag2)/2)
-                {
-                    Insert(currentNode.RightSon, newNode);
-                    flag1 = (flag1 + flag2) / 2;
-                }
-                else
-                {
-                    Insert(currentNode.LeftSon, newNode);
-                    flag2 = (flag1 + flag2) / 2;
-                }
-            }
-        }
+        //    }
+        //    else if (currentNode.RightSon == null)
+        //    {
+        //        newNode.Father = currentNode;
+        //        currentNode.RightSon = newNode;
+        //        OrderDowntoUp(currentNode.RightSon);
+        //    }
+        //    else
+        //    {
+        //        if (Leaves > (flag1 + flag2)/2)
+        //        {
+        //            Insert(currentNode.RightSon, newNode);
+        //            flag1 = (flag1 + flag2) / 2;
+        //        }
+        //        else
+        //        {
+        //            Insert(currentNode.LeftSon, newNode);
+        //            flag2 = (flag1 + flag2) / 2;
+        //        }
+        //    }
+        //}
 
         private void OrderDowntoUp(Node<T> current)
         {
@@ -302,6 +295,11 @@ namespace CustomGenerics
                 return current;
             }
             
+        }
+
+        public object Clone()
+        {
+            return this.MemberwiseClone();
         }
     }
 }
