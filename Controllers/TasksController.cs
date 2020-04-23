@@ -51,15 +51,49 @@ namespace Lab5_ED1.Controllers
         [HttpPost]
         public ActionResult CreateTask(FormCollection collection)
         {
+            int Priority = 0;
+            var priority = collection["Priority"];
+            switch (priority)
+            {
+                case "high":
+                    Priority = 1;
+                    break;
+                case "mid":
+                    Priority = 2;
+                    break;
+                case "low":
+                    Priority = 3;
+                    break;
+            }
             var newTask = new TasksModel()
             {
                 Title = collection["Title"],
                 Description = collection["Description"],
                 Proyect = collection["Proyect"],
-                //Priority = collection["Priority"],
+                Priority = Priority,
                 //DueDate = collection["DueDate"]
             };
-            return RedirectToAction("DeveloperProfile");
+            if (Storage.Instance.Hash.Search(newTask.Title) == null)
+            {
+                Storage.Instance.Hash.Insert(newTask, newTask.Title);
+                foreach (var developer in Storage.Instance.Developers)
+                {
+                    if (developer.User == Storage.Instance.CurrentUser)
+                    {
+                        if (developer.Tasks == null)
+                        {
+                            developer.Tasks = new CustomGenerics.PriorityQueue<string>();
+                        }
+                       
+                        developer.Tasks.AddTask(newTask.Title, new DateTime(), newTask.Priority);
+                    }
+                }
+                return RedirectToAction("DeveloperProfile");
+            }
+            else
+            {
+                return RedirectToAction("CreateTask");
+            }
         }
 
         public ActionResult DevelopersList()
