@@ -14,7 +14,11 @@ namespace Lab5_ED1.Controllers
         {
             return View();
         }
-
+        //Estoy probando
+        /// <summary>
+        /// </summary>
+        /// <param name="collection"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Login(FormCollection collection)
         {
