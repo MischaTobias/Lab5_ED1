@@ -133,7 +133,16 @@ namespace CustomGenerics.Structures
 
         private int GetCode(string Key)
         {
-            return Key.Length * 11 % 50;
+            int _vowels = 0;
+            var vowels = new char[5] { 'a', 'e', 'i', 'o', 'u' };
+            foreach (var vowel in vowels)
+            {
+                if (Key.Contains(vowel))
+                {
+                    _vowels++;
+                }
+            }
+            return (Key.Length + _vowels) * 11 % 50;
         }
 
         public List<HashNode<T>> GetTasksAsNodes()

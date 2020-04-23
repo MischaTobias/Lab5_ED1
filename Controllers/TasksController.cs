@@ -27,41 +27,47 @@ namespace Lab5_ED1.Controllers
 
         private void ChargeData()
         {
-            StreamReader streamReader = new StreamReader(Path.Combine(FilePath, "Users.txt"));
-            var line = streamReader.ReadLine();
-            var items = line.Split(',');
-            while (line != null)
+            if (System.IO.File.Exists(Path.Combine(FilePath, "Users.txt")))
             {
-                items = line.Split(',');
-                Storage.Instance.Developers.Add(new Developer() { Id = int.Parse(items[0]), User = items[1] });
-                line = streamReader.ReadLine();
-            }
-            streamReader.Close();
+                StreamReader streamReader = new StreamReader(Path.Combine(FilePath, "Users.txt"));
+                var line = streamReader.ReadLine();
+                if (line != null)
+                {
+                    var items = line.Split(',');
+                    while (line != null)
+                    {
+                        items = line.Split(',');
+                        Storage.Instance.Developers.Add(new Developer() { Id = int.Parse(items[0]), User = items[1] });
+                        line = streamReader.ReadLine();
+                    }
+                    streamReader.Close();
 
-            streamReader = new StreamReader(Path.Combine(FilePath, "Tasks.txt"));
-            line = streamReader.ReadLine();
-            while (line != null)
-            {
-                items = line.Split(',');
-                var task = new TasksModel()
-                {
-                    AssignedDeveloper = items[0],
-                    Priority = int.Parse(items[1]),
-                    Title = items[2],
-                    Description = items[3],
-                    Proyect = items[4],
-                    DueDate = DateTime.Parse(items[5])
-                };
-                Storage.Instance.Hash.Insert(task, task.Title);
-                var developer = Storage.Instance.Developers.Where(x => x.User == task.AssignedDeveloper).First();
-                if (developer.Tasks == null)
-                {
-                    developer.Tasks = new PriorityQueue<string>();
+                    streamReader = new StreamReader(Path.Combine(FilePath, "Tasks.txt"));
+                    line = streamReader.ReadLine();
+                    while (line != null)
+                    {
+                        items = line.Split(',');
+                        var task = new TasksModel()
+                        {
+                            AssignedDeveloper = items[0],
+                            Priority = int.Parse(items[1]),
+                            Title = items[2],
+                            Description = items[3],
+                            Proyect = items[4],
+                            DueDate = DateTime.Parse(items[5])
+                        };
+                        Storage.Instance.Hash.Insert(task, task.Title);
+                        var developer = Storage.Instance.Developers.Where(x => x.User == task.AssignedDeveloper).First();
+                        if (developer.Tasks == null)
+                        {
+                            developer.Tasks = new PriorityQueue<string>();
+                        }
+                        developer.Tasks.AddTask(task.Title, task.DueDate, task.Priority);
+                        line = streamReader.ReadLine();
+                    }
                 }
-                developer.Tasks.AddTask(task.Title, task.DueDate, task.Priority);
-                line = streamReader.ReadLine();
+                streamReader.Close();
             }
-            streamReader.Close();
         }
 
         [HttpPost]
@@ -178,8 +184,11 @@ namespace Lab5_ED1.Controllers
                     {
                         if (developer.Tasks != null)
                         {
-                            var taskToDelete = developer.Tasks.Delete();
-                            Storage.Instance.Hash.Delete(taskToDelete.Key);
+                            if (developer.Tasks.TasksQuantity != 0)
+                            {
+                                var taskToDelete = developer.Tasks.Delete();
+                                Storage.Instance.Hash.Delete(taskToDelete.Key);
+                            }
                         }
                     }
                     if (developer.Tasks != null)
